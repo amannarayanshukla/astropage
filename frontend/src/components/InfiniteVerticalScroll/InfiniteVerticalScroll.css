@@ -1,0 +1,79 @@
+.infinite-vertical-scroll {
+  display: flex;
+  gap: 16px;
+}
+
+.scroller {
+  position: relative;
+  overflow: hidden;
+  height: 832px; /* adjust as needed */
+}
+
+/* Gradient overlay for fade effect at the top */
+/* .scroller::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: calc(120rem / 16);
+  background: linear-gradient(
+    180deg,
+    var(--bg-primary-color) 10%,
+    rgba(255, 255, 255, 0) 80%
+  );
+  z-index: 2;
+} */
+
+/* For scrollers scrolling downward, flip the gradient to appear at the bottom */
+.scroller[data-direction='bottom']::before {
+  top: auto;
+  bottom: 0;
+  transform: rotate(180deg);
+}
+
+.scroller-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.scroller-inner > img {
+  height: 360px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 24px;
+}
+
+/* When animation is enabled, duplicate content is animated vertically */
+.scroller[data-animated='true'] .scroller-inner {
+  height: max-content;
+  flex-wrap: nowrap;
+  animation: scroll var(--animation-duration, 40s)
+    var(--animation-direction, forwards) linear infinite;
+}
+
+/* Define the scroll direction based on data attribute */
+.scroller[data-direction='top'] {
+  --animation-direction: forwards;
+}
+
+.scroller[data-direction='bottom'] {
+  --animation-direction: reverse;
+}
+
+/* Speed modifiers */
+.scroller[data-speed='fast'] {
+  --animation-duration: 130s;
+}
+
+.scroller[data-speed='slow'] {
+  --animation-duration: 130s;
+}
+
+/* Animate vertical translation by half the content height (plus a gap) */
+@keyframes scroll {
+  to {
+    transform: translateY(calc(-50% - 0.5rem));
+  }
+}

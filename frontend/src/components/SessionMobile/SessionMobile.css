@@ -1,0 +1,126 @@
+.session-mobile {
+  margin-bottom: 120px;
+}
+
+.session-mobile-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.session-mobile-top {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.session-mobile-top-title {
+  font-size: 40px;
+  font-weight: bold;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.session-mobile-top-text {
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.session-mobile-box {
+  display: flex;
+  flex-direction: column;
+  gap: 44px;
+}
+
+.session-mobile-item {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.session-mobile-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.session-mobile-bottom-title {
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 1.3;
+}
+
+.session-mobile-bottom-text {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.session-mobile-bottom-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.session-mobile-bottom-list-item {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.session-mobile-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 44px;
+  width: 148px;
+  margin-top: 8px;
+  background-color: #000000;
+  border-radius: 99px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #ffffff;
+  cursor: pointer;
+  border: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.session-mobile-btn:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.session-mobile-image {
+  width: 100%;
+  height: 360px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.session-mobile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 24px;
+}
+
+@media (min-width: 1023px) {
+  .session-mobile {
+    display: none;
+  }
+}
+
+@media (max-width: 800px) {
+  .session-mobile {
+    margin-bottom: 80px;
+  }
+
+  .session-mobile-top-title {
+    font-size: 32px;
+  }
+}

@@ -1,0 +1,189 @@
+.hero {
+  position: relative;
+  margin-bottom: 120px;
+}
+
+/* .hero::before {
+  content: '';
+  position: absolute;
+  width: 50%;
+  height: 90%;
+  left: -360px;
+  top: -130px;
+  background: linear-gradient(203.91deg, #ffd600 17.64%, #ff0000 66.69%);
+  filter: blur(197px);
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 50%;
+  height: 90%;
+  right: -360px;
+  top: 100px;
+  background: linear-gradient(50.39deg, #ff5924 16.05%, #ffd600 75.91%);
+  filter: blur(197px);
+} */
+
+.hero-content {
+  max-width: 1220px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-title {
+  font-size: 52px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.hero-desc {
+  max-width: 642px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.hero-subtitle {
+  font-size: 29px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1.38;
+  margin: 24px 0;
+}
+
+.hero-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 74px;
+  width: 370px;
+  margin: 0 auto 20px;
+  background-color: #000000;
+  border-radius: 99px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.hero-btn:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.hero-text {
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.hero-cards {
+  display: flex;
+  justify-content: space-between;
+  max-width: 876px;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 80px;
+  gap: 24px;
+}
+
+.hero-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 260px;
+}
+
+.hero-card-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 32px;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.hero-card-text {
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.41;
+}
+
+.hero-inner-content {
+  position: relative;
+}
+
+.hero-saturn-image {
+  position: absolute;
+  top: -28px;
+  left: 0;
+  width: 216px;
+}
+
+.hero-tarot-image {
+  position: absolute;
+  top: -70px;
+  right: 0;
+  width: 180px;
+}
+
+/* Media Queries */
+@media (max-width: 1023px) {
+  .hero-title {
+    font-size: 40px;
+  }
+
+  .hero-subtitle {
+    font-size: 20px;
+    line-height: 1.3;
+  }
+
+  .hero-saturn-image {
+    top: 40px;
+    width: 140px;
+  }
+
+  .hero-tarot-image {
+    top: 30px;
+    width: 100px;
+  }
+
+  .hero-btn {
+    height: 60px;
+    width: 300px;
+    margin: 0 auto 20px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 800px) {
+  .hero {
+    margin-bottom: 80px;
+  }
+
+  .hero-title {
+    font-size: 32px;
+  }
+
+  .hero-subtitle {
+    font-size: 18px;
+  }
+
+  .hero-desc {
+    max-width: 360px;
+  }
+
+  .hero-tarot-image {
+    top: 60px;
+    right: -8px;
+    width: 80px;
+  }
+
+  .hero-saturn-image {
+    top: 0;
+    left: -8px;
+    width: 120px;
+  }
+}

@@ -1,0 +1,42 @@
+.reviews-slider {
+  padding-bottom: 80px;
+}
+
+.reviews-slider .swiper-pagination-bullet-active {
+  background: #f68d36;
+}
+
+.reviews-slider .swiper-button-prev,
+.reviews-slider .swiper-button-next {
+  width: 32px;
+  height: 32px;
+}
+
+.reviews-slider .swiper-button-prev:after {
+  background-image: url('../../assets//svg/arrow-left.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 32px;
+  height: 32px;
+  font-family: inherit;
+  content: '';
+}
+
+.reviews-slider .swiper-button-next:after {
+  background-image: url('../../assets//svg/arrow-left.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 32px;
+  height: 32px;
+  font-family: inherit;
+  content: '';
+  transform: rotate(180deg);
+}
+
+/* Media Queries */
+@media (max-width: 800px) {
+  .reviews-slider .swiper-button-prev,
+  .reviews-slider .swiper-button-next {
+    display: none;
+  }
+}

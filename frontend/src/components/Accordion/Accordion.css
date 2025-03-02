@@ -1,0 +1,42 @@
+.accordion-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.accordion-item {
+  border-bottom: 1px solid #000000;
+}
+
+.accordion-button {
+  width: 100%;
+  text-align: left;
+  padding: 14px;
+  font-weight: bold;
+  background: transparent;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+  padding: 0 14px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.accordion-content.open {
+  max-height: 200px;
+  padding: 14px;
+  padding-top: 0;
+}

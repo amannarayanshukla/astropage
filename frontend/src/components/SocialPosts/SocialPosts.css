@@ -1,0 +1,125 @@
+.social-posts {
+  position: relative;
+  margin-bottom: 120px;
+}
+
+/* .social-posts::before {
+  content: '';
+  position: absolute;
+  width: 50%;
+  height: 90%;
+  right: -360px;
+  top: -100px;
+  background: linear-gradient(203.91deg, #ffd600 17.64%, #ff0000 66.69%);
+  filter: blur(197px);
+  transform: matrix(-0.59, -0.81, -0.81, 0.59, 0, 0);
+} */
+
+.social-posts-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 80px;
+  position: relative;
+  z-index: 1;
+}
+
+.social-posts-info {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+}
+
+.social-posts-image-top {
+  width: 80px;
+}
+
+.social-posts-image-bottom {
+  width: 80px;
+  margin-left: 60%;
+  margin-top: 16px;
+}
+
+.social-posts-title {
+  font-size: 56px;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.social-posts-description {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.social-posts-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 44px;
+  width: 148px;
+  background-color: #000000;
+  border-radius: 99px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.social-posts-btn:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.social-posts-scroller {
+  width: 50%;
+}
+
+/* Media Queries */
+@media (max-width: 1023px) {
+  .social-posts-content {
+    gap: 24px;
+  }
+
+  .social-posts-title {
+    font-size: 40px;
+  }
+
+  .social-posts-image-bottom {
+    width: 60px;
+    margin-left: 40%;
+    margin-top: 0;
+  }
+
+  .social-posts-image-top {
+    width: 60px;
+  }
+}
+
+@media (max-width: 800px) {
+  .social-posts-content {
+    flex-direction: column;
+  }
+
+  .social-posts-info {
+    width: 100%;
+  }
+
+  .social-posts-scroller {
+    width: 100%;
+  }
+
+  .social-posts-title {
+    font-size: 32px;
+  }
+
+  .social-posts-image-bottom {
+    margin-top: -24px;
+  }
+
+  .social-posts {
+    margin-bottom: 80px;
+  }
+}

@@ -1,0 +1,17 @@
+.products-listing {
+  margin-bottom: 120px;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  column-gap: 32px;
+  row-gap: 44px;
+}
+
+/* Media Queries */
+@media (max-width: 1023px) {
+  .products-listing {
+    margin-bottom: 80px;
+  }
+}

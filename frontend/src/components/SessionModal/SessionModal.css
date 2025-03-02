@@ -1,0 +1,144 @@
+.session-modal-body {
+  padding: 40px 32px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.session-modal-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 40px;
+  background-color: #000000;
+  border-radius: 50%;
+  color: #ffffff;
+  cursor: pointer;
+  border: 0;
+}
+
+.session-modal-left {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.session-modal-title {
+  font-size: 32px;
+  line-height: 1.2;
+  font-weight: bold;
+}
+
+.session-modal-text {
+  font-size: 17px;
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+.session-modal-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.session-modal-list-item {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.session-modal-right {
+  width: 50%;
+  position: relative;
+}
+
+.session-modal-main {
+  width: 74%;
+  margin: 0 auto;
+  height: 540px;
+  border-radius: 24px;
+  object-fit: cover;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.session-modal-main-right {
+  position: absolute;
+  top: 52px;
+  right: 0;
+  width: 240px;
+  height: 180px;
+  border-radius: 24px;
+  object-fit: cover;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.session-modal-main-left {
+  position: absolute;
+  bottom: 52px;
+  left: 0;
+  width: 240px;
+  height: 180px;
+  border-radius: 24px;
+  object-fit: cover;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.session-modal-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 44px;
+  width: 200px;
+  margin-top: 8px;
+  background-color: #000000;
+  border-radius: 99px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #ffffff;
+  cursor: pointer;
+  border: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.session-modal-btn:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Media Queries */
+@media (max-width: 1023px) {
+  .session-modal-body {
+    padding: 32px 12px 20px;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .session-modal-left {
+    width: 100%;
+  }
+
+  .session-modal-right {
+    width: 100%;
+  }
+
+  .session-modal-text {
+    font-size: 15px;
+  }
+
+  .session-modal-main {
+    width: 100%;
+    height: 360px;
+  }
+
+  .session-modal-main-right {
+    display: none;
+  }
+
+  .session-modal-main-left {
+    display: none;
+  }
+}

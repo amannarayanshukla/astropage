@@ -1,0 +1,113 @@
+.products-hero {
+  position: relative;
+  margin-bottom: 120px;
+}
+
+.products-hero-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.products-hero-tarot {
+  width: 180px;
+  height: 180px;
+}
+
+.products-hero-inner {
+  max-width: 772px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.products-hero-title {
+  font-size: 52px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.products-hero-text {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.products-hero-shape-wrapper {
+  position: relative;
+  width: 180px;
+}
+
+.products-hero-shape-top {
+  width: 70px;
+  height: 58px;
+  position: absolute;
+  top: 0;
+  right: 32px;
+}
+
+.products-hero-shape-bottom {
+  width: 70px;
+  height: 80px;
+  position: absolute;
+  bottom: -32px;
+  left: -44px;
+}
+
+/* Media Queries */
+@media (max-width: 1023px) {
+  .products-hero-content {
+    gap: 24px;
+  }
+
+  .products-hero-title {
+    font-size: 40px;
+  }
+
+  .products-hero-text {
+    font-size: 20px;
+  }
+
+  .products-hero-tarot {
+    width: 100px;
+    height: 100px;
+  }
+
+  .products-hero-shape-bottom {
+    width: 44px;
+    height: 50px;
+    left: 0;
+  }
+
+  .products-hero-shape-top {
+    width: 44px;
+    height: 50px;
+    right: 0;
+  }
+}
+
+@media (max-width: 800px) {
+  .products-hero {
+    margin-bottom: 80px;
+  }
+
+  .products-hero-tarot {
+    width: 80px;
+    height: 80px;
+  }
+
+  .products-hero-inner {
+    gap: 20px;
+  }
+
+  .products-hero-shape-wrapper {
+    width: 120px;
+  }
+}
