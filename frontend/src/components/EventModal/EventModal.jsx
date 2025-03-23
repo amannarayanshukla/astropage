@@ -1,30 +1,29 @@
-/* eslint-disable react/prop-types */
-import Modal from 'react-modal';
-import closeImage from '../../assets/svg/close.svg';
-import './EventModal.css';
-import calendarImage from '../../assets/svg/calendar.svg';
+import Modal from "react-modal";
+import closeImage from "../../assets/svg/close.svg";
+import "./EventModal.css";
+import calendarImage from "../../assets/svg/calendar.svg";
 
 const customStyles = {
   content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    width: '96%',
-    backgroundColor: '#ffffff',
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    width: "96%",
+    backgroundColor: "#ffffff",
     border: 0,
     padding: 0,
-    maxHeight: '90dvh',
+    maxHeight: "90dvh",
   },
   overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.65)',
-    zIndex: '10',
+    backgroundColor: "rgba(0, 0, 0, 0.65)",
+    zIndex: "10",
   },
 };
 
-const EventModal = ({ modalIsOpen, closeModal }) => {
+const EventModal = ({ modalIsOpen, closeModal, event }) => {
   return (
     <>
       <Modal
@@ -40,37 +39,22 @@ const EventModal = ({ modalIsOpen, closeModal }) => {
           <div className="event-modal-right">
             <p className="event-modal-date">
               <img src={calendarImage} alt="" />
-              21.10.2024
+              {new Date(event?.createdAt).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
             </p>
-            <h2 className="event-modal-title">
-              Overnight Stargazing at Horizon Astronomical Society
-            </h2>
-            <p className="event-modal-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse varius enim in eros elementum tristique. Duis cursus,
-              mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam
-              libero vitae erat.
-            </p>
-            <p className="event-modal-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse varius enim in eros elementum tristique. Duis cursus,
-              mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam
-              libero vitae erat.
-            </p>
-            <p className="event-modal-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse varius
-            </p>
+            <h2 className="event-modal-title">{event?.title}</h2>
+            <p className="event-modal-text">{event?.description}</p>
             <ul className="event-modal-list">
-              <li className="event-modal-list-item">
-                Lorem ipsum dolor sit vet dolor ispad
-              </li>
-              <li className="event-modal-list-item">
-                Lorem ipsum dolor sit vet dolor ispad
-              </li>
-              <li className="event-modal-list-item">
-                Lorem ipsum dolor sit vet dolor ispad
-              </li>
+              {event?.tagLines.map((tag) => {
+                return (
+                  <li key={tag} className="event-modal-list-item">
+                    {tag}
+                  </li>
+                );
+              })}
             </ul>
             <div className="event-modal-actions">
               <a href="" className="event-modal-btn">

@@ -119,3 +119,20 @@
     font-size: 32px;
   }
 }
+
+@media (max-width: 700px) {
+  .event-title {
+    width: 280px;
+    margin: 0 auto;
+  }
+
+  .event-shape-left {
+    width: 35px;
+    height: auto;
+  }
+
+  .event-shape-right {
+    width: 35px;
+    height: auto;
+  }
+}

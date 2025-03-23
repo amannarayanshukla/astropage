@@ -123,3 +123,15 @@
     margin-bottom: 80px;
   }
 }
+
+@media (max-width: 700px) {
+  .social-posts-image-top {
+    width: 44px;
+    height: auto;
+  }
+
+  .social-posts-image-bottom {
+    width: 44px;
+    height: auto;
+  }
+}

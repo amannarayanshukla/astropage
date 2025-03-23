@@ -1,0 +1,134 @@
+/* Sticky Wrapper */
+.session-wrapper {
+  position: relative;
+  height: 300vh;
+  margin-bottom: 120px;
+}
+
+/* Sticky Session */
+.session {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+/* Main Content */
+.session-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  gap: 80px;
+  width: 100%;
+  padding: 40px 0;
+}
+
+/* Left Content */
+.session-info {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.session-top {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.session-top-title {
+  font-size: 48px;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.session-top-text {
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.41;
+}
+
+.session-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.session-bottom-title {
+  font-size: 32px;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.session-bottom-text {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.session-bottom-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.session-bottom-list-item {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.session-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 44px;
+  width: 148px;
+  margin-top: 8px;
+  background-color: #000000;
+  border-radius: 99px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #ffffff;
+  cursor: pointer;
+  border: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.session-btn:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.session-image {
+  width: 50%;
+  height: 602px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.session-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 24px;
+}
+
+/* Smooth transition effects */
+motion.div,
+motion.img {
+  transition: all 0.5s ease-in-out;
+}
+
+/* Media Queries */
+@media (max-width: 1023px) {
+  .session-wrapper {
+    display: none;
+  }
+}

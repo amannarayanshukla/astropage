@@ -1,20 +1,25 @@
-import { useEffect, useState } from "react";
-import EventPlaceHolderImage from "../../../assets/images/event-placeholder.png";
-import "./AdminEvents.css";
+import React, { useEffect, useState } from 'react';
+import EventPlaceHolderImage from '../../../assets/images/event-placeholder.png';
+import './AdminEvents.css';
+import apiClient from '../../../services/api/apiClient';
+import { createImageUrl } from '../../../utils';
+import { Tooltip } from 'react-tooltip';
+import { FaTimes } from 'react-icons/fa';
 
 const AdminEvents = () => {
   const [events, setEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isDetailView, setIsDetailView] = useState(false);
   const [isAddMode, setIsAddMode] = useState(false);
   const [editForm, setEditForm] = useState({
-    title: "",
+    title: '',
     description: [],
     tagLines: [],
-    eventDate: "",
+    eventDate: '',
     price: 0,
+    image: null,
   });
 
   useEffect(() => {
@@ -29,111 +34,132 @@ const AdminEvents = () => {
         tagLines: selectedEvent.tagLines,
         eventDate: new Date(selectedEvent.eventDate)
           .toISOString()
-          .split("T")[0],
+          .split('T')[0],
         price: selectedEvent.price,
+        image: selectedEvent.image,
       });
     }
   }, [selectedEvent, isDetailView]);
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/events");
-      const data = await response.json();
-      setEvents(data);
+      const response = await apiClient('/events', 'GET', null, true);
+      setEvents(response);
     } catch (error) {
-      console.error("Error fetching events:", error);
+      console.error('Error fetching events:', error);
     }
   };
 
-  const handleDelete = async (eventId) => {
-    if (window.confirm("Are you sure you want to delete this event?")) {
+  const handleDelete = async eventId => {
+    if (window.confirm('Are you sure you want to delete this event?')) {
       try {
-        const response = await fetch(
-          `http://localhost:5000/api/events/${eventId}`,
-          {
-            method: "DELETE",
-          }
+        const response = await apiClient(
+          `/events/${eventId}`,
+          'DELETE',
+          null,
+          true
         );
-        if (response.ok) {
-          setEvents((prev) => ({
+        if (response.success === true) {
+          setEvents(prev => ({
             ...prev,
-            data: prev.data.filter((event) => event._id !== eventId),
+            data: prev.data.filter(event => event._id !== eventId),
             count: prev.count - 1,
           }));
         }
       } catch (error) {
-        console.error("Error deleting event:", error);
+        console.error('Error deleting event:', error);
       }
     }
   };
 
-  const handleEdit = (event) => {
+  const handleEdit = event => {
     setSelectedEvent(event);
     setIsDetailView(false);
   };
 
-  const handleView = (event) => {
+  const handleView = event => {
     setSelectedEvent(event);
     setIsDetailView(true);
   };
 
-  const handleEditFormChange = (e) => {
+  const handleEditFormChange = e => {
     const { name, value } = e.target;
-    if (name === "description" || name === "tagLines") {
-      setEditForm((prev) => ({
+    if (name === 'description' || name === 'tagLines') {
+      const arrayValues = value.split('\n');
+      setEditForm(prev => ({
         ...prev,
-        [name]: value.split("\n"),
+        [name]: arrayValues,
       }));
     } else {
-      setEditForm((prev) => ({
+      setEditForm(prev => ({
         ...prev,
         [name]: value,
       }));
     }
   };
 
+  const handleImageChange = e => {
+    const file = e.target.files[0];
+    setEditForm(prev => ({
+      ...prev,
+      image: file,
+    }));
+  };
+
   const handleUpdate = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:5000/api/events/${selectedEvent._id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(editForm),
+      const formData = new FormData();
+
+      Object.keys(editForm).forEach(key => {
+        if (key === 'description' || key === 'tagLines') {
+          editForm[key].forEach((item, index) => {
+            if (item.trim() !== '') {
+              formData.append(`${key}[${index}]`, item);
+            }
+          });
+        } else if (key === 'image' && editForm[key] instanceof File) {
+          formData.append(key, editForm[key]);
+        } else if (key !== 'image') {
+          formData.append(key, editForm[key]);
         }
+      });
+
+      const response = await apiClient(
+        `/events/${selectedEvent._id}`,
+        'PUT',
+        formData,
+        true
       );
 
-      if (response.ok) {
-        const updatedEvent = await response.json();
-        setEvents((prev) => ({
+      if (response.success === true) {
+        const updatedEvent = response;
+        setEvents(prev => ({
           ...prev,
-          data: prev.data.map((event) =>
+          data: prev.data.map(event =>
             event._id === selectedEvent._id ? updatedEvent.data : event
           ),
         }));
         setSelectedEvent(null);
       }
     } catch (error) {
-      console.error("Error updating event:", error);
+      console.error('Error updating event:', error);
     }
   };
 
-  const handleSearch = (e) => {
+  const handleSearch = e => {
     const term = e.target.value.toLowerCase();
     setSearchTerm(term);
 
-    if (term.trim() === "") {
+    if (term.trim() === '') {
       setFilteredEvents(null);
       return;
     }
 
     const filtered = events.data.filter(
-      (event) =>
+      event =>
         event.title.toLowerCase().includes(term) ||
-        event.description.some((desc) => desc.toLowerCase().includes(term)) ||
-        event.tagLines.some((tag) => tag.toLowerCase().includes(term))
+        event.description.some(desc => desc.toLowerCase().includes(term)) ||
+        event.tagLines.some(tag => tag.toLowerCase().includes(term))
     );
 
     setFilteredEvents({ ...events, data: filtered });
@@ -143,27 +169,35 @@ const AdminEvents = () => {
     setIsAddMode(true);
     setSelectedEvent(null);
     setEditForm({
-      title: "",
-      description: [""],
-      tagLines: [""],
-      eventDate: new Date().toISOString().split("T")[0],
+      title: '',
+      description: [''],
+      tagLines: [''],
+      eventDate: new Date().toISOString().split('T')[0],
       price: 0,
+      image: null,
     });
   };
 
   const handleCreate = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/events", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(editForm),
+      const formData = new FormData();
+
+      Object.keys(editForm).forEach(key => {
+        if (key === 'description' || key === 'tagLines') {
+          editForm[key].forEach((item, index) => {
+            if (item.trim() !== '') {
+              formData.append(`${key}[${index}]`, item);
+            }
+          });
+        } else {
+          formData.append(key, editForm[key]);
+        }
       });
 
-      if (response.ok) {
-        const newEvent = await response.json();
-        setEvents((prev) => ({
+      const response = await apiClient('/events', 'POST', formData, true);
+      const newEvent = response;
+      if (response.success === true) {
+        setEvents(prev => ({
           ...prev,
           data: [...prev.data, newEvent.data],
           count: prev.count + 1,
@@ -171,7 +205,7 @@ const AdminEvents = () => {
         setIsAddMode(false);
       }
     } catch (error) {
-      console.error("Error creating event:", error);
+      console.error('Error creating event:', error);
     }
   };
 
@@ -179,76 +213,92 @@ const AdminEvents = () => {
 
   return (
     <div className="admin-events-container">
-      <div className="admin-header">
-        <h1>Event Management</h1>
-        <div className="admin-controls">
-          <div className="search-container">
-            <input
-              type="text"
-              placeholder="Search events..."
-              value={searchTerm}
-              onChange={handleSearch}
-              className="search-input"
-            />
-            {searchTerm && (
-              <button
-                className="clear-search"
-                onClick={() => {
-                  setSearchTerm("");
-                  setFilteredEvents(null);
-                }}
-              >
-                ×
-              </button>
-            )}
-          </div>
-          <button className="btn-add" onClick={handleAddNew}>
+      <h1 className="admin-events-header-title">Event Management</h1>
+      <div className="admin-events-header">
+        <div className="admin-events-controls">
+          <button className="admin-events-btn-add" onClick={handleAddNew}>
             Add New Event
           </button>
+          <p
+            data-tooltip-id="event-count"
+            data-tooltip-content="Total Events"
+            className="admin-events-count"
+          >
+            Events: {displayedEvents?.count || 0}
+          </p>
+          <Tooltip id="event-count" />
+        </div>
+        <div className="admin-events-search-container">
+          <input
+            type="text"
+            placeholder="Search Events"
+            value={searchTerm}
+            onChange={handleSearch}
+            className="admin-events-search-input"
+          />
+          {searchTerm && (
+            <button
+              className="admin-events-clear-search"
+              onClick={() => {
+                setSearchTerm('');
+                setFilteredEvents(null);
+              }}
+            >
+              ×
+            </button>
+          )}
         </div>
       </div>
 
-      <p>Total Events: {displayedEvents?.count || 0}</p>
-
-      <div className="events-grid">
-        {displayedEvents?.data?.map((event) => (
-          <div key={event._id} className="admin-event-card">
-            <div className="admin-event-image-container">
+      <div className="admin-events-grid">
+        {displayedEvents?.data?.map(event => (
+          <div key={event._id} className="admin-events-card">
+            <div className="admin-events-image-container">
               <img
-                src={event.images?.[0] || EventPlaceHolderImage}
+                src={
+                  event.image
+                    ? createImageUrl(event.image)
+                    : EventPlaceHolderImage
+                }
                 alt={event.title}
-                className="admin-event-image"
+                className="admin-events-image"
               />
             </div>
-            <div className="admin-event-content">
-              <div className="admin-event-header">
-                <h3>{event.title}</h3>
-                <p className="admin-event-price">${event.price}</p>
+            <div className="admin-events-content">
+              <h3 className="admin-events-card-title">{event.title}</h3>
+              <div className="admin-events-event-header">
+                <p className="admin-events-price">${event.price}</p>
+                <p className="admin-events-date">
+                  {new Date(event.eventDate).toLocaleDateString()}
+                </p>
               </div>
-              <p className="admin-event-date">
-                {new Date(event.eventDate).toLocaleDateString()}
-              </p>
-              <div className="admin-event-tags">
+              <div className="admin-events-tags">
                 {event.tagLines.map((tag, index) => (
-                  <span key={index} className="tag">
+                  <span key={index} className="admin-events-tag">
                     {tag}
                   </span>
                 ))}
               </div>
-              <div className="admin-event-description">
+              <div className="admin-events-description">
                 {event.description.map((desc, index) => (
-                  <p key={index}>{desc}</p>
+                  <React.Fragment key={index}>{desc}</React.Fragment>
                 ))}
               </div>
-              <div className="admin-event-actions">
-                <button className="btn-view" onClick={() => handleView(event)}>
+              <div className="admin-events-actions">
+                <button
+                  className="admin-events-btn-view"
+                  onClick={() => handleView(event)}
+                >
                   View
                 </button>
-                <button className="btn-edit" onClick={() => handleEdit(event)}>
+                <button
+                  className="admin-events-btn-edit"
+                  onClick={() => handleEdit(event)}
+                >
                   Edit
                 </button>
                 <button
-                  className="btn-delete"
+                  className="admin-events-btn-delete"
                   onClick={() => handleDelete(event._id)}
                 >
                   Delete
@@ -260,115 +310,143 @@ const AdminEvents = () => {
       </div>
 
       {(selectedEvent || isAddMode) && (
-        <div className="modal">
-          <div className="modal-content">
-            <span
-              className="close"
-              onClick={() => {
-                setSelectedEvent(null);
-                setIsAddMode(false);
-              }}
-            >
-              &times;
-            </span>
-            {isDetailView ? (
-              <div className="admin-event-details">
-                <h2>{selectedEvent.title}</h2>
-                <img
-                  src={EventPlaceHolderImage}
-                  alt={selectedEvent.title}
-                  className="detail-image"
-                />
-                <p className="detail-date">
-                  <strong>Date:</strong>{" "}
-                  {new Date(selectedEvent.eventDate).toLocaleDateString()}
-                </p>
-                <p className="detail-price">
-                  <strong>Price:</strong> ${selectedEvent.price}
-                </p>
-                <div className="detail-tags">
-                  {selectedEvent.tagLines.map((tag, index) => (
-                    <span key={index} className="tag">
-                      {tag}
-                    </span>
-                  ))}
+        <div className="admin-events-modal">
+          <div className="admin-events-modal-content">
+            <div className="admin-events-modal-header">
+              <h2 className="admin-events-modal-title">
+                {isDetailView
+                  ? selectedEvent.title
+                  : isAddMode
+                  ? 'Add New Event'
+                  : 'Edit Event'}
+              </h2>
+              <span
+                className="admin-events-close"
+                onClick={() => {
+                  setSelectedEvent(null);
+                  setIsAddMode(false);
+                }}
+              >
+                <FaTimes size={20} fill="red" />
+              </span>
+            </div>
+            <div className="admin-events-modal-body">
+              {isDetailView ? (
+                <div className="admin-events-details">
+                  <h2 className="admin-events-details-title">
+                    {selectedEvent.title}
+                  </h2>
+                  <img
+                    src={
+                      selectedEvent?.images?.length > 0
+                        ? createImageUrl(selectedEvent.images?.[0])
+                        : EventPlaceHolderImage
+                    }
+                    alt={selectedEvent.title}
+                    className="admin-events-detail-image"
+                  />
+                  <div className="admin-events-detail-flex">
+                    <p className="admin-events-detail-price">
+                      ${selectedEvent.price}
+                    </p>
+                    <p className="admin-events-detail-date">
+                      {new Date(selectedEvent.eventDate).toLocaleDateString()}
+                    </p>
+                  </div>
+                  <div className="admin-events-detail-tags">
+                    {selectedEvent.tagLines.map((tag, index) => (
+                      <span key={index} className="admin-events-detail-tag">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="admin-events-detail-description">
+                    {selectedEvent.description.map((desc, index) => (
+                      <p key={index}>{desc}</p>
+                    ))}
+                  </div>
                 </div>
-                <div className="detail-description">
-                  {selectedEvent.description.map((desc, index) => (
-                    <p key={index}>{desc}</p>
-                  ))}
+              ) : (
+                <div className="admin-events-edit-form">
+                  <form onSubmit={e => e.preventDefault()}>
+                    <div className="admin-events-form-group">
+                      <label>Title:</label>
+                      <input
+                        type="text"
+                        name="title"
+                        value={editForm.title}
+                        onChange={handleEditFormChange}
+                      />
+                    </div>
+                    <div className="admin-events-form-group">
+                      <label>Description (one per line):</label>
+                      <textarea
+                        name="description"
+                        value={editForm.description.join('\n')}
+                        onChange={handleEditFormChange}
+                        rows="4"
+                      />
+                    </div>
+                    <div className="admin-events-form-group">
+                      <label>Tag Lines (one per line):</label>
+                      <textarea
+                        name="tagLines"
+                        value={editForm.tagLines.join('\n')}
+                        onChange={handleEditFormChange}
+                        rows="3"
+                      />
+                    </div>
+                    <div className="admin-events-form-group">
+                      <label>Event Date:</label>
+                      <input
+                        type="date"
+                        name="eventDate"
+                        value={editForm.eventDate}
+                        onChange={handleEditFormChange}
+                      />
+                    </div>
+                    <div className="admin-events-form-group">
+                      <label>Price:</label>
+                      <input
+                        type="number"
+                        name="price"
+                        value={editForm.price}
+                        onChange={handleEditFormChange}
+                        step="0.01"
+                      />
+                    </div>
+                    <div className="admin-events-form-group">
+                      <label>Images:</label>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        className="admin-events-file-input"
+                      />
+                    </div>
+                  </form>
                 </div>
-              </div>
-            ) : (
-              <div className="admin-event-edit-form">
-                <h2>{isAddMode ? "Add New Event" : "Edit Event"}</h2>
-                <form onSubmit={(e) => e.preventDefault()}>
-                  <div className="form-group">
-                    <label>Title:</label>
-                    <input
-                      type="text"
-                      name="title"
-                      value={editForm.title}
-                      onChange={handleEditFormChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Description (one per line):</label>
-                    <textarea
-                      name="description"
-                      value={editForm.description.join("\n")}
-                      onChange={handleEditFormChange}
-                      rows="4"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Tag Lines (one per line):</label>
-                    <textarea
-                      name="tagLines"
-                      value={editForm.tagLines.join("\n")}
-                      onChange={handleEditFormChange}
-                      rows="3"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Event Date:</label>
-                    <input
-                      type="date"
-                      name="eventDate"
-                      value={editForm.eventDate}
-                      onChange={handleEditFormChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Price:</label>
-                    <input
-                      type="number"
-                      name="price"
-                      value={editForm.price}
-                      onChange={handleEditFormChange}
-                      step="0.01"
-                    />
-                  </div>
-                  <div className="form-actions">
-                    <button
-                      type="button"
-                      className="btn-save"
-                      onClick={isAddMode ? handleCreate : handleUpdate}
-                    >
-                      {isAddMode ? "Create Event" : "Save Changes"}
-                    </button>
-                    <button
-                      type="button"
-                      className="btn-cancel"
-                      onClick={() => {
-                        setSelectedEvent(null);
-                        setIsAddMode(false);
-                      }}
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </form>
+              )}
+            </div>
+            {!isDetailView && (
+              <div className="admin-events-modal-footer">
+                <button
+                  type="button"
+                  className="admin-events-btn-save"
+                  onClick={isAddMode ? handleCreate : handleUpdate}
+                >
+                  {isAddMode ? 'Create Event' : 'Save Changes'}
+                </button>
+                <button
+                  type="button"
+                  className="admin-events-btn-cancel"
+                  onClick={() => {
+                    setSelectedEvent(null);
+                    setIsAddMode(false);
+                  }}
+                >
+                  Cancel
+                </button>
               </div>
             )}
           </div>

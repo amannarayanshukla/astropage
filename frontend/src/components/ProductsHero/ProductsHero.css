@@ -111,3 +111,29 @@
     width: 120px;
   }
 }
+
+@media (max-width: 700px) {
+  .products-hero {
+    margin-bottom: 40px;
+  }
+
+  .products-hero-tarot {
+    display: none;
+  }
+
+  .products-hero-shape-wrapper {
+    display: none;
+  }
+
+  .products-hero-inner {
+    gap: 16px;
+  }
+
+  .products-hero-title {
+    font-size: 32px;
+  }
+
+  .products-hero-text {
+    font-size: 16px;
+  }
+}

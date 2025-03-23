@@ -1,0 +1,522 @@
+.admin-products-container {
+  padding: 40px 12px;
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.admin-products-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.admin-products-header-title {
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.admin-products-controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.admin-products-count {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  height: 40px;
+  font-weight: 600;
+  border-radius: 4px;
+  font-size: 18px;
+  color: #333;
+}
+
+.admin-products-search-container {
+  position: relative;
+  min-width: 340px;
+}
+
+.admin-products-search-input {
+  display: block;
+  width: 100%;
+  padding: 10px 35px 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #333;
+  transition: border-color 0.2s ease;
+}
+
+.admin-products-search-input:focus {
+  border-color: #2196f3;
+  outline: none;
+}
+
+.admin-products-clear-search {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #666;
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.admin-products-clear-search:hover {
+  background: #eee;
+}
+
+.admin-products-btn-add {
+  background-color: #2196f3;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 190px;
+  text-align: center;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  transition: background-color 0.2s ease;
+}
+
+.admin-products-btn-add:hover {
+  background-color: #1976d2;
+}
+
+.admin-products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.admin-products-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.admin-products-card:hover {
+  transform: translateY(-5px);
+}
+
+.admin-products-image-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+
+.admin-products-image-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-products-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.admin-products-carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  transition: background-color 0.3s ease;
+  z-index: 2;
+}
+
+.admin-products-prev-btn {
+  left: 10px;
+}
+
+.admin-products-next-btn {
+  right: 10px;
+}
+
+.admin-products-carousel-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+  z-index: 2;
+}
+
+.admin-products-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.admin-products-dot.active {
+  background: white;
+}
+
+.admin-products-dot:hover {
+  transform: scale(1.2);
+}
+
+.admin-products-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: calc(100% - 300px);
+}
+
+.admin-products-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-products-card-title {
+  font-size: 18px;
+  text-align: center;
+}
+
+.admin-products-price {
+  color: #2196f3;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+}
+
+.admin-products-description {
+  color: #333;
+  font-size: 16px;
+}
+
+.admin-products-meta {
+  display: flex;
+  justify-content: space-between;
+  color: #333;
+}
+
+.admin-products-actions {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.admin-products-btn-toggle-fields {
+  background-color: transparent;
+  border: 0;
+  color: #2196f3;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.admin-products-btn-view,
+.admin-products-btn-edit,
+.admin-products-btn-delete {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s ease;
+}
+
+.admin-products-btn-view {
+  background-color: #4caf50;
+  color: white;
+}
+
+.admin-products-btn-edit {
+  background-color: #2196f3;
+  color: white;
+}
+
+.admin-products-btn-delete {
+  background-color: #f44336;
+  color: white;
+}
+
+.admin-products-btn-view:hover {
+  background-color: #45a049;
+}
+
+.admin-products-btn-edit:hover {
+  background-color: #1976d2;
+}
+
+.admin-products-btn-delete:hover {
+  background-color: #d32f2f;
+}
+
+/* Modal Styles with Fixed Header & Footer */
+.admin-products-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.admin-products-modal-content {
+  background: white;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow: hidden; /* We'll set scrolling on the body only */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Fixed Modal Header */
+.admin-products-modal-header {
+  position: sticky;
+  top: 0;
+  background: white;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.admin-products-modal-title {
+  font-size: 20px;
+}
+
+.admin-products-close {
+  cursor: pointer;
+}
+
+/* Scrollable Modal Body */
+.admin-products-modal-body {
+  overflow-y: auto;
+  padding: 20px;
+  flex: 1 1 auto;
+}
+
+/* Fixed Modal Footer */
+.admin-products-modal-footer {
+  position: sticky;
+  bottom: 0;
+  background: white;
+  padding: 10px 20px;
+  border-top: 1px solid #ddd;
+  z-index: 10;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Detail View Styles */
+.admin-products-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.admin-products-details-title {
+  font-size: 20px;
+  text-align: center;
+}
+
+.admin-products-detail-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.admin-products-detail-info {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-products-detail-description {
+  color: #333;
+}
+
+.admin-products-detail-price,
+.admin-products-detail-rating,
+.admin-products-detail-reviews,
+.admin-products-detail-created {
+  color: #2196f3;
+  font-size: 16px;
+}
+
+.admin-products-detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.admin-products-detail-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-products-detail-section > h4 {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.admin-products-variant-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.admin-products-variant-list li {
+  padding: 5px 10px;
+  width: fit-content;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+/* Edit Form Styles */
+.admin-products-edit-form {
+  padding: 30px 0 0;
+}
+
+.admin-products-edit-form-title {
+  font-size: 20px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.admin-products-form-group {
+  margin-bottom: 20px;
+}
+
+.admin-products-form-group:last-child {
+  margin-bottom: 0;
+}
+
+.admin-products-form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.admin-products-form-group input,
+.admin-products-form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.admin-products-form-group textarea {
+  resize: vertical;
+}
+
+.admin-products-form-group input:focus,
+.admin-products-form-group textarea:focus {
+  outline: none;
+  border-color: #2196f3;
+}
+
+.admin-products-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.admin-products-btn-save {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.admin-products-btn-cancel {
+  background-color: #666;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.admin-products-btn-save:hover {
+  background-color: #45a049;
+}
+
+.admin-products-btn-cancel:hover {
+  background-color: #555;
+}
+
+@media (max-width: 920px) {
+  .admin-products-header {
+    flex-direction: column;
+  }
+
+  .admin-products-controls {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .admin-products-search-container {
+    min-width: 100%;
+  }
+}

@@ -1,0 +1,69 @@
+.socials {
+  max-width: 640px;
+  width: 96%;
+  margin: 0 auto;
+  padding: 80px 0;
+}
+
+.socials-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.socials-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.socials-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.socials-field:last-child {
+  margin-bottom: 0;
+}
+
+.socials-field label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #555555;
+}
+
+.socials-field input {
+  width: 100%;
+  padding: 8px;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.socials-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.behold-link {
+  background-color: #0e7ee6;
+  color: white;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+}

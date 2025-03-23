@@ -1,4 +1,4 @@
-.sidebar {
+.admin-sidebar {
   position: fixed;
   left: 0;
   top: 0;
@@ -6,27 +6,58 @@
   background: #1a1a1a;
   width: 60px;
   transition: width 0.3s ease;
-}
-
-.sidebar.open {
-  width: 250px;
-}
-
-.sidebar-content {
-  width: 250px;
   color: white;
-  padding: 20px;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease;
 }
 
-.sidebar.open .sidebar-content {
-  opacity: 1;
-  visibility: visible;
+.admin-sidebar.admin-open {
+  width: 250px;
 }
 
-.toggle-btn {
+.admin-sidebar-links {
+  padding: 60px 10px;
+}
+
+.admin-sidebar.admin-open .admin-sidebar-links {
+  padding: 60px 20px;
+}
+
+.admin-sidebar-links ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-sidebar.admin-open .admin-sidebar-links ul li {
+  justify-content: flex-start;
+}
+
+.admin-sidebar-links ul li {
+  padding: 10px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.admin-sidebar-links ul li .admin-icon {
+  font-size: 20px;
+}
+
+.admin-sidebar-links ul li:hover {
+  color: #ec9111;
+}
+
+.admin-sidebar-links ul li.admin-active {
+  color: #ec9111;
+}
+
+.admin-link-text {
+  white-space: nowrap;
+}
+
+.admin-toggle-btn {
   position: absolute;
   right: -30px;
   top: 20px;
@@ -38,17 +69,11 @@
   border-radius: 0 5px 5px 0;
 }
 
-nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.admin-sidebar-push {
+  transition: margin-left 0.3s ease;
+  margin-left: 60px;
 }
 
-nav ul li {
-  padding: 10px 0;
-  cursor: pointer;
-}
-
-nav ul li:hover {
-  color: #4a9eff;
+.admin-sidebar-push.admin-open {
+  margin-left: 250px;
 }

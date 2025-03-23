@@ -1,16 +1,10 @@
-import Modal from 'react-modal';
-import Home from './pages/Home';
-// import Products from './pages/Products';
-// import Product from './pages/Product';
-
-Modal.setAppElement('#root');
+import RootRouter from './pages/index';
+import 'react-tooltip/dist/react-tooltip.css';
 
 const App = () => {
   return (
     <>
-      <Home />
-      {/* <Products /> */}
-      {/* <Product /> */}
+      <RootRouter />
     </>
   );
 };

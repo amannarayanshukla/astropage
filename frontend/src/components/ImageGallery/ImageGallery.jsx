@@ -1,7 +1,7 @@
-/* eslint-disable react/prop-types */
-import { useEffect, useRef, useState } from 'react';
-import './ImageGallery.css';
-import chevronLeftImage from '../../assets/svg/chevron-left.svg';
+import { useEffect, useRef, useState } from "react";
+import "./ImageGallery.css";
+import chevronLeftImage from "../../assets/svg/chevron-left.svg";
+import { createImageUrl } from "../../utils";
 
 const THUMBNAIL_WIDTH = 110;
 const GAP = 16; // gap between thumbnails
@@ -28,16 +28,16 @@ const ImageGallery = ({ images }) => {
     };
 
     updateVisibleThumbnails();
-    window.addEventListener('resize', updateVisibleThumbnails);
+    window.addEventListener("resize", updateVisibleThumbnails);
     return () => {
-      window.removeEventListener('resize', updateVisibleThumbnails);
+      window.removeEventListener("resize", updateVisibleThumbnails);
     };
   }, []);
 
   // Scroll the thumbnails container when the start index changes
   useEffect(() => {
     if (thumbnailsRef.current) {
-      thumbnailsRef.current.style.scrollBehavior = 'smooth';
+      thumbnailsRef.current.style.scrollBehavior = "smooth";
       thumbnailsRef.current.scrollLeft = startIndex * (THUMBNAIL_WIDTH + GAP);
     }
   }, [startIndex]);
@@ -58,7 +58,11 @@ const ImageGallery = ({ images }) => {
     <div className="gallery-container">
       {/* Active Image */}
       <div className="active-image-container">
-        <img src={activeImage} alt="Active" className="active-image" />
+        <img
+          src={createImageUrl(activeImage)}
+          alt="Active"
+          className="active-image"
+        />
       </div>
 
       {/* Thumbnails with Scroll */}
@@ -75,9 +79,9 @@ const ImageGallery = ({ images }) => {
           className="thumbnails"
           ref={thumbnailsRef}
           style={{
-            overflowX: 'hidden',
-            scrollBehavior: 'smooth',
-            scrollbarWidth: 'none',
+            overflowX: "hidden",
+            scrollBehavior: "smooth",
+            scrollbarWidth: "none",
             // Remove the fixed width so it fills the container
           }}
         >
@@ -86,10 +90,10 @@ const ImageGallery = ({ images }) => {
             .map((image, index) => (
               <img
                 key={index}
-                src={image}
+                src={createImageUrl(image)}
                 alt="Thumbnail"
                 className={`thumbnail ${
-                  activeImage === image ? 'active-thumbnail' : ''
+                  activeImage === image ? "active-thumbnail" : ""
                 }`}
                 onClick={() => setActiveImage(image)}
               />

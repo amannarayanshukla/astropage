@@ -187,3 +187,31 @@
     width: 120px;
   }
 }
+
+@media (max-width: 700px) {
+  .hero-saturn-image {
+    display: none;
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+  }
+
+  .hero-tarot-image {
+    display: none;
+  }
+
+  .hero-desc {
+    max-width: 100%;
+  }
+
+  .hero-cards {
+    flex-direction: column;
+    margin-top: 60px;
+    gap: 32px;
+  }
+
+  .hero-card {
+    max-width: 100%;
+  }
+}

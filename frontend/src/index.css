@@ -17,18 +17,18 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.6); /* Semi-transparent white */
+  background: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
   border-radius: 10px; /* Rounded corners */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.6); /* More visible on hover */
+  background: rgba(255, 255, 255, 0.8); /* More visible on hover */
 }
 
 /* For Firefox */
 * {
   scrollbar-width: thin; /* Thin scrollbar */
-  scrollbar-color: rgba(255, 255, 255, 0.6) transparent; /* Thumb color & transparent track */
+  scrollbar-color: rgba(255, 255, 255, 0.8) transparent; /* Thumb color & transparent track */
 }
 
 html {

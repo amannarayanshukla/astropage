@@ -1,53 +1,21 @@
-import EventCard from '../EventCard/EventCard';
-import './Event.css';
-import eventShapeLeft from '../../assets/svg/event-shape-left.svg';
-import eventShapeRight from '../../assets/svg/event-shape-right.svg';
-import eventImage from '../../assets/images//event-placeholder.png';
-import { useRef, useState } from 'react';
-import { useScroll } from 'framer-motion';
-import { Slide } from 'react-awesome-reveal';
-import EventCardMobile from '../EventCardMobile/EventCardMobile';
-import EventModal from '../EventModal/EventModal';
-
-const events = [
-  {
-    id: 1,
-    tagline: 'Explore the Universe',
-    title: 'Overnight Stargazing at Horizon Astronomical Society',
-    text: 'Join us for an unforgettable night under the stars, exploring the wonders of the cosmos.',
-    image: eventImage,
-    link: '#',
-  },
-  {
-    id: 2,
-    tagline: 'Celestial Wonders',
-    title: 'Lunar Eclipse Viewing Party',
-    text: 'Experience the breathtaking beauty of a lunar eclipse with fellow astronomy enthusiasts.',
-    image: eventImage,
-    link: '#',
-  },
-  {
-    id: 3,
-    tagline: 'Discover the Night',
-    title: 'Meteor Shower Magic',
-    text: 'Watch as the sky lights up with a spectacular meteor shower this summer night.',
-    image: eventImage,
-    link: '#',
-  },
-  {
-    id: 4,
-    tagline: 'Astronomy Night',
-    title: 'Star Gazing at the Observatory',
-    text: 'Enjoy an evening of stargazing and deep space exploration at our local observatory.',
-    image: eventImage,
-    link: '#',
-  },
-];
+import { useScroll } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { Slide } from "react-awesome-reveal";
+import eventShapeLeft from "../../assets/svg/event-shape-left.svg";
+import eventShapeRight from "../../assets/svg/event-shape-right.svg";
+import apiClient from "../../services/api/apiClient";
+import EventCard from "../EventCard/EventCard";
+import EventCardMobile from "../EventCardMobile/EventCardMobile";
+import EventModal from "../EventModal/EventModal";
+import "./Event.css";
 
 const Event = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [events, setEvents] = useState([]);
+  const [activeEvent, setActiveEvent] = useState({});
 
-  function openModal() {
+  function openModal(event) {
+    setActiveEvent(event);
     setIsOpen(true);
   }
 
@@ -59,9 +27,32 @@ const Event = () => {
 
   const { scrollYProgress } = useScroll({
     target: container,
-    offset: ['start start', 'end end'],
+    offset: ["start start", "end end"],
   });
 
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await apiClient("/events", "GET", null, false);
+        if (response.success) {
+          setEvents(response.data); // Make sure to access response.data
+        }
+      } catch (error) {
+        console.error("Error fetching Events:", error);
+      }
+    };
+    fetchEvents();
+  }, []);
+
+  const genericText = {
+    title: "Our Training Events",
+    description:
+      "Discover our comprehensive training programs designed to help you achieve your fitness goals. From beginner to advanced levels, we offer personalized attention and expert guidance.",
+    emptyStateMessage:
+      "No Events available at the moment. Please check back later.",
+    loadingMessage: "Loading available Events...",
+    errorMessage: "Unable to load Eventss. Please try again later.",
+  };
   return (
     <>
       <section className="event">
@@ -73,14 +64,10 @@ const Event = () => {
               className="event-shape-left floating"
             />
             <Slide direction="up" delay={200} triggerOnce>
-              <h2 className="event-title">Upcoming Events</h2>
+              <h2 className="event-title">{genericText.title}</h2>
             </Slide>
             <Slide direction="up" delay={300} triggerOnce>
-              <p className="event-text">
-                Lorem ipsum dolor site vetLorem ipsum dolor site vetLorem ipsum
-                dolor site vetLorem ipsum dolor site vetLorem ipsum dolor site
-                vetLorem ipsum dolor site vetLorem ipsum dolor site vetLorem
-              </p>
+              <p className="event-text">{genericText.description}</p>
             </Slide>
             <img
               src={eventShapeRight}
@@ -90,7 +77,7 @@ const Event = () => {
           </div>
           <div className="event-cloud" ref={container}>
             <div className="event-cards">
-              {events.map(event => {
+              {events.map((event) => {
                 // Adjust the start of the transform so that it begins earlier
                 const lowerBound = Math.max(0, event.id * 0.25 - 0.1);
                 const targetScale = 1 - (events.length - event.id) * 0.1;
@@ -108,7 +95,7 @@ const Event = () => {
             </div>
           </div>
           <div className="event-mobile">
-            {events.map(event => {
+            {events.map((event) => {
               return (
                 <EventCardMobile
                   openModal={openModal}
@@ -121,7 +108,11 @@ const Event = () => {
         </div>
       </section>
       {modalIsOpen && (
-        <EventModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
+        <EventModal
+          modalIsOpen={modalIsOpen}
+          closeModal={closeModal}
+          event={activeEvent}
+        />
       )}
     </>
   );

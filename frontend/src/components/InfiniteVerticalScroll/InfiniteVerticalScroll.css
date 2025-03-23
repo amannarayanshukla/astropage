@@ -6,6 +6,7 @@
 .scroller {
   position: relative;
   overflow: hidden;
+  width: 50%;
   height: 832px; /* adjust as needed */
 }
 
@@ -38,7 +39,7 @@
   gap: 16px;
 }
 
-.scroller-inner > img {
+.scroller-inner img {
   height: 360px;
   width: 100%;
   object-fit: cover;
